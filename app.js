@@ -71,11 +71,11 @@ client.connect(function(err) {
     }
     console.log(result.rows[0].theTime);
     //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
-    client.end();
+     client.end();
   });
 });
 
-require('./config/routes')(app, config, passport);
+require('./config/routes')(app, config, passport, pg, conString);
 
 
 http.createServer(app).listen(app.get('port'), function () {

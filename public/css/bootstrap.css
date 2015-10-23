@@ -1086,7 +1086,8 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
-  background-color: #fff;
+  /*background-color: #fff;*/
+  background: rgba(20.1%, 20.9%, 20.9%, 0.1);
 }
 input,
 button,
@@ -1583,10 +1584,11 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  padding-right: 15px;
+/*  padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
-  margin-left: auto;
+  margin-left: auto;*/
+  height: 600px;
 }
 @media (min-width: 768px) {
   .container {

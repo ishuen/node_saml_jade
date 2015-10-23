@@ -1,12 +1,21 @@
 extends layout
 
 block content
-	if user !== null
-		h1 Hello, #{user.firstName}
-		a(href="/profile") Profile
-		br
-		a(href="/logout") Logout
-	else
-		h1 Welcome
-		br
-		a(href="/login") Login
+	div.left
+		if user !== null
+			h1 Hello.
+			a(href="/profile") Profile
+			br
+			a(href="/showAll") showAll
+			br
+			a(href="/logout") Logout
+		else
+			h1 Welcome.
+			br
+			a(href="/login") Login
+	div.right
+		div.main
+			if  user !== null
+				include ./showAll.jade
+
+		include ./footer.jade

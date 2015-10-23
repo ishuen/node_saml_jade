@@ -1,4 +1,4 @@
-module.exports = function(app, config, passport) {
+module.exports = function(app, config, passport, pg, conString) {
 	app.get("/", function(req, res) {
 		if(req.isAuthenticated()) {
 		  res.render("home",
@@ -52,4 +52,25 @@ module.exports = function(app, config, passport) {
 		// TODO: invalidate session on IP
 		res.redirect('/');
 	});
+	
+	app.get('/showAll', function(req, res){
+		if(req.user){
+			var client = new pg.Client(conString);
+			client.connect(function(err) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+	        	client.query('SELECT * FROM webalu.posts', function(err, result) {
+	          		if(err) {
+	            			return console.error('error running query', err);
+	          		}
+				res.render("showAll",{userid: result.rows[0].userid, post: result.rows[0].post});
+				client.end();
+			});
+			});
+		 }
+		else{
+			res.render("showAll",{post:null});
+		}
+	})
 }
