@@ -64,13 +64,24 @@ module.exports = function(app, config, passport, pg, conString) {
 	          		if(err) {
 	            			return console.error('error running query', err);
 	          		}
-				res.render("showAll",{userid: result.rows[0].userid, post: result.rows[0].post});
+				for(var i = 0; i < result.rows.length; i++){
+					var postID = result.rows[i].postid;
+					res.render("showAll",{user: req.user, userid: result.rows[i].userid, post: result.rows[i].post});
+					client.query('SELECT * FROM webalu.comments WHERE postID = "postID"', function(err, result){
+						if(err){
+							return console.error('error running query', err);
+						}
+						for(var j = 0; j < result.rows.length; j++){
+							
+						}
+					})
+				}
 				client.end();
 			});
 			});
 		 }
-		else{
-			res.render("showAll",{post:null});
-		}
+ 		else{
+ 			res.render("showAll",{post:null});
+ 		}
 	})
 }

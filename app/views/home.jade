@@ -4,9 +4,9 @@ block content
 	div.left
 		if user !== null
 			h1 Hello.
-			a(href="/profile") Profile
+			a(href="/showAll" class="showPo") home
 			br
-			a(href="/showAll") showAll
+			a(href="/profile" class="profile") Profile
 			br
 			a(href="/logout") Logout
 		else
@@ -14,7 +14,7 @@ block content
 			br
 			a(href="/login") Login
 	div.right
-		div.main
+		#main.main
 			if  user !== null
 				include ./showAll.jade
 
