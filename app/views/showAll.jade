@@ -1,9 +1,13 @@
 #showAll
 	div.showAll
-		dl
-			dt user ID
-			dd #{userid}
-			dt post content
-			dd #{post}
+		if posts !== null
+			dl
+				dt user ID
+				dd #{user.displayName}			
+				dt post content
+				dd #{posts}
+				dt post comment
+				dd #{comments}
+				
 
 		

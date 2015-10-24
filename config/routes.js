@@ -56,28 +56,43 @@ module.exports = function(app, config, passport, pg, conString) {
 	app.get('/showAll', function(req, res){
 		if(req.user){
 			var client = new pg.Client(conString);
-			client.connect(function(err) {
+			pg.connect(conString, function(err, client, done) {
 			if(err) {
 				return console.error('could not connect to postgres', err);
 			}
-	        	client.query('SELECT * FROM webalu.posts', function(err, result) {
+			var poCo = new Array();
+	        	client.query('SELECT * FROM webalu.posts, webalu.users WHERE webalu.posts.userid = webalu.users.userid ORDER BY webalu.posts.postid ASC', function(err, result) {
 	          		if(err) {
 	            			return console.error('error running query', err);
 	          		}
-				for(var i = 0; i < result.rows.length; i++){
-					var postID = result.rows[i].postid;
-					res.render("showAll",{user: req.user, userid: result.rows[i].userid, post: result.rows[i].post});
-					client.query('SELECT * FROM webalu.comments WHERE postID = "postID"', function(err, result){
-						if(err){
-							return console.error('error running query', err);
+				poCo = result.rows.slice();
+				client.query('SELECT * FROM webalu.comments, webalu.users WHERE webalu.comments.userid = webalu.users.userid ORDER BY webalu.comments.postid ASC, webalu.comments.comday ASC, webalu.comments.comtime ASC', function(err, result){
+					if(err){
+						return console.error('error running query', err);
+					}
+					var comm = new Array();
+					for(var i = 0; i < poCo.length; i++){
+						var temp = new Array();
+						var temp2;
+						while(temp2 = result.rows.pop()){
+							if(temp2.postid == poCo[i].postid){
+								temp.unshift(temp2);
+							}
+							else{
+								result.rows.push(temp2);
+								break;
+							}
 						}
-						for(var j = 0; j < result.rows.length; j++){
-							
+						if(temp != ""){
+							comm.unshift(temp);
 						}
-					})
-				}
-				client.end();
+					}
+					res.render("showAll",{user: req.user, posts: JSON.stringify(poCo), comments: JSON.stringify(comm)});
+				})
+				done();
 			});
+			
+			
 			});
 		 }
  		else{

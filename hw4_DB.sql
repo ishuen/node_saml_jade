@@ -13,4 +13,6 @@ INSERT INTO webalu.users VALUES('b00000002', '測試二');
 INSERT INTO webalu.users VALUES('b00000003', '測試三');
 INSERT INTO webalu.users VALUES('b00000004', '測試四');
 INSERT INTO webalu.posts VALUES('1', 'b00000001', 'ajdklfndvnjkehfnejfkldshf.','2015-10-23', '14:14:14');
+INSERT INTO webalu.posts VALUES('2', 'b00000003', 'ajdsajklhfsljkldjldkl;owdd.','2015-10-24', '10:14:14');
 INSERT INTO webalu.comments VALUES('1', 'b00000003', '10', 'what?', '2015-10-23','14:16:20');
+INSERT INTO webalu.comments VALUES('1', 'b00000004', '11', 'what???', '2015-10-23','14:18:50');
