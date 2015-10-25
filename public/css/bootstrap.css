@@ -1088,6 +1088,9 @@ body {
   color: #333;
   /*background-color: #fff;*/
   background: rgba(20.1%, 20.9%, 20.9%, 0.1);
+  background-image:url('/palm_tree_lined_streets.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 input,
 button,
@@ -1098,7 +1101,8 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  /*color: #337ab7;*/
+  color: #91C5F2;
   text-decoration: none;
 }
 a:hover,
@@ -1188,7 +1192,8 @@ h6,
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
-  color: inherit;
+  /*color: inherit;*/
+  color: #F9F9F9;
 }
 h1 small,
 h2 small,
