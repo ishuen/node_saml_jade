@@ -2,12 +2,18 @@
 	div.showAll
 		if posts !== null
 			dl
-				dt user ID
-				dd #{user.displayName}			
-				dt post content
-				dd #{posts}
-				dt post comment
-				dd #{comments}
+				- for(var i = 0; i< posts.length; i++)
+					div.block
+						dt issuer
+						dd= posts[i].userid		
+						dt post content
+						dd= posts[i].poday + posts[i].potime
+						dd= posts[i].post
+						-for(var j = 0; j<comments[i].length; j++)
+								dt post comment
+								dd= comments[i][j].userid +' '+ comments[i][j].comday + comments[i][j].comtime
+								dd= comments[i][j].comment
+					br
 				
 
 		

@@ -28,3 +28,12 @@
 #showAll{
 	margin: 2%;
 }
+.block{
+	background: rgba(18.5%, 19.3%, 19.3%, 0.3);
+}
+.block dt{
+	color: #D4DCDC;
+}
+.block dd{
+	color: #BDC1C1;
+}
