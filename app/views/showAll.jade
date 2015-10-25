@@ -5,7 +5,7 @@
 				- for(var i = 0; i< posts.length; i++)
 					div.block
 						dt issuer
-						dd= posts[i].userid	
+						dd= posts[i].username	
 						dt post content
 						dd= posts[i].poday.getDate() +'/'+(posts[i].poday.getMonth()+1) +'/' + posts[i].poday.getFullYear()+' '+ posts[i].potime
 						dd= posts[i].post
@@ -13,7 +13,7 @@
 							dt post comment
 							br
 						-for(var j = 0; j<comments[i].length; j++)
-								dd= comments[i][j].userid + ' ' + comments[i][j].comday.getDate() +'/' + (comments[i][j].comday.getMonth()+1) +'/'+ comments[i][j].comday.getFullYear() + ' '+ comments[i][j].comtime
+								dd= comments[i][j].username + ' ' + comments[i][j].comday.getDate() +'/' + (comments[i][j].comday.getMonth()+1) +'/'+ comments[i][j].comday.getFullYear() + ' '+ comments[i][j].comtime
 								dd= comments[i][j].comment
 					br
 				
