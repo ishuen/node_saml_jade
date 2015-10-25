@@ -29,11 +29,16 @@
 	margin: 2%;
 }
 .block{
-	background: rgba(18.5%, 19.3%, 19.3%, 0.3);
+	background: rgba(18.5%, 19.3%, 19.3%, 0.5);
 }
 .block dt{
-	color: #D4DCDC;
+	/*color: #D4DCDC;*/
+	color: #91C5F2;
+	float: left;
+  	clear: left;
+  	margin-right: 5px;
 }
 .block dd{
 	color: #BDC1C1;
+	margin-left: 5px;
 }
