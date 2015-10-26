@@ -9,13 +9,18 @@
 						dt post content
 						dd= posts[i].poday.getDate() +'/'+(posts[i].poday.getMonth()+1) +'/' + posts[i].poday.getFullYear()+' '+ posts[i].potime
 						dd= posts[i].post
+						if posts[i].userid == user.id
+							a(href="/editPost" class="button") edit
 						if comments[i].length > 0
 							dt post comment
 							br
 						-for(var j = 0; j<comments[i].length; j++)
 								dd= comments[i][j].username + ' ' + comments[i][j].comday.getDate() +'/' + (comments[i][j].comday.getMonth()+1) +'/'+ comments[i][j].comday.getFullYear() + ' '+ comments[i][j].comtime
 								dd= comments[i][j].comment
-					br
-				
+						div.addCom
+							input(type="textarea" placeholder="add a comment...")
+							input(type="submit" value="submit")
+					br.
+
 
 		

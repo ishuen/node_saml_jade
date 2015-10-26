@@ -68,6 +68,9 @@ module.exports = function(app, config, passport, pg, conString) {
 		res.render("signup");
 	});
 
+	app.get("/showAll", function(req, res){
+		res.render("showAll", {user:req.user, postid:null});
+	})
 	app.get("/profile", function(req, res) {
     	if(req.isAuthenticated()){
 			res.render("profile",
@@ -78,6 +81,13 @@ module.exports = function(app, config, passport, pg, conString) {
     	    res.redirect("/login");
 	    }
 	});
+
+	app.get("/editPost", function(req, res){
+		console.log(req.user);
+		console.log(req.postID);
+		
+		res.render('/editPost', {user:req.user, postID:req.postID});
+	})
 
 	app.get('/logout', function(req, res) {
 		req.logout();

@@ -30,6 +30,7 @@
 }
 .block{
 	background: rgba(18.5%, 19.3%, 19.3%, 0.5);
+	width: 80%;
 }
 .block dt{
 	/*color: #D4DCDC;*/
@@ -41,4 +42,28 @@
 .block dd{
 	color: #BDC1C1;
 	margin-left: 5px;
+}
+.button {
+	color: #D2ED8F;
+	padding-left: 90%;
+}
+.addCom {
+	padding-left: 15px;
+}
+.addCom input[type=textarea]{
+	/*background: rgba(24.6%, 25.2%, 19.2%, 0.6);*/
+	background-color: #E0E1D6;
+	border: 0px;
+	width: 90%;
+	padding: 5px;
+}
+.addCom input[type=submit]{
+	padding-left: 90%;
+	margin-right: 10%;
+	background: rgba(18.5%, 19.3%, 19.3%, 0);
+	border: solid 0px;
+	color: #D2ED8F;
+}
+.addCom input[type=submit]:hover{
+	color: #245269;
 }

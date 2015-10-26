@@ -15,7 +15,7 @@ var app = express();
 
 app.configure(function () {
   app.set('port', config.app.port);
-  app.set('views', __dirname + '/app/views');
+  app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.logger('dev'));
   app.use(express.cookieParser());
