@@ -20,7 +20,7 @@ primary key: postID
 
 foreign key: userID
 
-
+|         |         |              |           |           |
 |---------|---------|--------------|-----------|-----------|
 | post ID | user ID | post content | post date | post time |
 
@@ -32,6 +32,7 @@ primary key: commentID
 
 foreign key: poatID, userID
 
+|         |         |            |                 |              |              |
 |---------|---------|------------|-----------------|--------------|--------------|
 | post ID | user ID | comment ID | comment content | comment date | comment time |
 
