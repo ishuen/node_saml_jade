@@ -37,11 +37,12 @@
 	color: #91C5F2;
 	float: left;
   	clear: left;
+  	margin-left: 5px;
   	margin-right: 5px;
 }
 .block dd{
 	color: #BDC1C1;
-	margin-left: 5px;
+	margin-left: 10px;
 }
 .button {
 	color: #D2ED8F;

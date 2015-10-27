@@ -25,7 +25,8 @@
     "nodemon": "*",
     "passport": "*",
     "passport-saml": "*",
-    "pg":"*"
+    "pg": "*",
+    "body-parser": "*"
   },
   "engines": {
     "node": ">= 0.10.0"

@@ -16,22 +16,24 @@ module.exports = function(app, config, passport, pg, conString) {
 						if(err){
 							return console.error('error running query', err);
 						}
+						console.log(result.rows);
 						var comm = new Array();
+						var start = 0;
 						for(var i = 0; i < poCo.length; i++){
 							var temp = new Array();
-							var temp2;
-							while(temp2 = result.rows.pop()){
-								if(temp2.postid == poCo[i].postid){
-									temp.unshift(temp2);
+							for(var j = start; j < result.rows.length; j++){
+								if(result.rows[j].postid == poCo[i].postid){
+									var obj = result.rows[j];
+									temp.push(obj);
 								}
-								else{										result.rows.push(temp2);
-										break;
+								else{
+									start = j;
+									break;
 								}
 							}
-							// if(temp != ""){
-								comm.push(temp);
-							// }
+							comm.push(temp);
 						}
+						console.log(comm);
 						res.render("home", {user: req.user, posts: poCo, comments: comm});
 					});
 				done();
@@ -84,11 +86,42 @@ module.exports = function(app, config, passport, pg, conString) {
 
 	app.get("/editPost", function(req, res){
 		console.log(req.user);
-		console.log(req.postID);
+		console.log(req.query);
 		
-		res.render('/editPost', {user:req.user, postID:req.postID});
-	})
+		res.render('editPost', {user:req.user, postID:req.query.postid});
+	});
 
+	app.get('/addComment', function(req, res){
+		var client = new pg.Client(conString);
+		pg.connect(conString, function(err, client, done) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			var maxComm;
+			client.query("SELECT MAX (commentid) FROM webalu.comments", function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+				var max = result.rows[0].max+1;
+				var now = new Date();
+				var date = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+				var hour = now.getHours();
+				if(hour < 10) hour = '0'+hour;
+				var min = now.getMinutes();
+				if(min < 10) min = '0'+min;
+				var sec = now.getSeconds();
+				if(sec < 10) sec = '0'+sec;
+				var time = hour +':'+min+':'+sec;
+				client.query("INSERT INTO webalu.comments VALUES('"+req.query.postid+"','"+req.user.id+"','"+max+"','"+req.query.newComm+"','"+date+"','"+time+"');", function(err, result){
+					if(err) {
+						return console.error('error running query', err);
+					}
+				});
+			});	
+		});
+		res.redirect("/");
+	});
+	
 	app.get('/logout', function(req, res) {
 		req.logout();
 		// TODO: invalidate session on IP

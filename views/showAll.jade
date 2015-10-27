@@ -10,16 +10,18 @@
 						dd= posts[i].poday.getDate() +'/'+(posts[i].poday.getMonth()+1) +'/' + posts[i].poday.getFullYear()+' '+ posts[i].potime
 						dd= posts[i].post
 						if posts[i].userid == user.id
-							a(href="/editPost" class="button") edit
+							a.button(href="/editPost"+'?postid='+posts[i].postid) edit
 						if comments[i].length > 0
 							dt post comment
 							br
-						-for(var j = 0; j<comments[i].length; j++)
+							-for(var j = 0; j<comments[i].length; j++)
 								dd= comments[i][j].username + ' ' + comments[i][j].comday.getDate() +'/' + (comments[i][j].comday.getMonth()+1) +'/'+ comments[i][j].comday.getFullYear() + ' '+ comments[i][j].comtime
 								dd= comments[i][j].comment
 						div.addCom
-							input(type="textarea" placeholder="add a comment...")
-							input(type="submit" value="submit")
+							form(action="/addComment" method="get")
+								input(type="hidden" id="postid" name="postid" value=posts[i].postid)
+								input(type="textarea" id="newComm" name="newComm" placeholder="add a comment...")
+								input(type="submit" value="submit")
 					br.
 
 

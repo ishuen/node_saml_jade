@@ -10,6 +10,7 @@ var env = process.env.NODE_ENV || 'development',
 
 require('./config/passport')(passport, config);
 
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -19,7 +20,8 @@ app.configure(function () {
   app.set('view engine', 'jade');
   app.use(express.logger('dev'));
   app.use(express.cookieParser());
-  app.use(express.bodyParser());
+  //app.use(express.bodyParser());
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(express.session(
     {
       secret: 'this shit hits'
