@@ -10,7 +10,7 @@
 						dd= posts[i].poday.getDate() +'/'+(posts[i].poday.getMonth()+1) +'/' + posts[i].poday.getFullYear()+' '+ posts[i].potime
 						dd= posts[i].post
 						if posts[i].userid == user.id
-							a.button(href="/editPost"+'?postid='+posts[i].postid) edit
+							a.button(href="/editPost"+'?postid='+posts[i].postid+'&username='+posts[i].username) edit
 						if comments[i].length > 0
 							dt post comment
 							br

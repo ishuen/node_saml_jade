@@ -1,5 +1,6 @@
 module.exports = function(app, config, passport, pg, conString) {
 	app.get("/", function(req, res) {
+		//console.log(req.query);
 		if(req.isAuthenticated()) {
 			var client = new pg.Client(conString);
 			pg.connect(conString, function(err, client, done) {
@@ -16,7 +17,6 @@ module.exports = function(app, config, passport, pg, conString) {
 						if(err){
 							return console.error('error running query', err);
 						}
-						console.log(result.rows);
 						var comm = new Array();
 						var start = 0;
 						for(var i = 0; i < poCo.length; i++){
@@ -33,7 +33,6 @@ module.exports = function(app, config, passport, pg, conString) {
 							}
 							comm.push(temp);
 						}
-						console.log(comm);
 						res.render("home", {user: req.user, posts: poCo, comments: comm});
 					});
 				done();
@@ -85,11 +84,43 @@ module.exports = function(app, config, passport, pg, conString) {
 	});
 
 	app.get("/editPost", function(req, res){
-		console.log(req.user);
-		console.log(req.query);
-		
-		res.render('editPost', {user:req.user, postID:req.query.postid});
+		//console.log(req.user);
+		//console.log(req.query);
+		var client = new pg.Client(conString);
+		pg.connect(conString, function(err, client, done) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query("SELECT post FROM webalu.posts WHERE postid="+req.query.postid, function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+				//console.log(result.rows);
+				var postCont = result.rows[0].post;
+				res.render('editPost', {user:req.user, userName: req.query.username, postID:req.query.postid, postContent: postCont});
+			});
+			
+		});
 	});
+	
+	app.get('/editPo', function(req, res){
+		if(req.query){
+			var client = new pg.Client(conString);
+			pg.connect(conString, function(err, client, done) {
+				if(err) {
+					return console.error('could not connect to postgres', err);
+				}
+				
+				client.query("UPDATE webalu.posts SET post='"+req.query.content+"'WHERE postid='"+req.query.postid+"'", function(err, result){
+					if(err) {
+						return console.error('error running query', err);
+					}
+					res.redirect('/');
+				});
+			});
+			
+		}
+	})
 
 	app.get('/addComment', function(req, res){
 		var client = new pg.Client(conString);

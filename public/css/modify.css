@@ -68,3 +68,30 @@
 .addCom input[type=submit]:hover{
 	color: #245269;
 }
+.editPost {	
+	padding: 5px;
+	background: rgba(18.5%, 19.3%, 19.3%, 0.5);
+	width: 80%;
+	margin: 2%;
+	color: #BDC1C1;
+}
+.editPost textarea{
+	margin-left: 5px;
+	background-color: #D2FBDF;
+	border: 0px;
+	padding: 5px;
+	width: 90%;
+	height: 250px;
+	vertical-align: text-top;
+	color: #264530;
+}
+.editPost input[type=submit]{
+	padding-left: 90%;
+	margin-right: 10%;
+	background: rgba(18.5%, 19.3%, 19.3%, 0);
+	border: solid 0px;
+	color: #D2ED8F;
+}
+.editPost input[type=submit]:hover{
+	color: #245269;
+}
