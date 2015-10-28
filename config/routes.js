@@ -61,9 +61,31 @@ module.exports = function(app, config, passport, pg, conString) {
 				failureFlash: true
 			}),
 		function(req, res) {
-			res.redirect('/');
+			res.redirect('/first');
 		}
 	);
+	
+	app.get('/first', function(req, res){
+		var client = new pg.Client(conString);
+		pg.connect(conString, function(err, client, done) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query("SELECT username FROM webalu.users WHERE userid='"+req.user.id+"';", function(err, result){
+				if(err){
+					return console.error('error running query', err);
+				}
+				if(result.rows == ''){
+					client.query("INSERT INTO webalu.users VALUES('"+req.user.id+"','"+req.user.displayName+"');",function(err, result){
+						if(err){
+							return console.error('error running query', err);
+						}
+					});
+				}
+				res.redirect('/');
+			});
+		});
+	});
 
 	app.get("/signup", function (req, res) {
 		res.render("signup");
