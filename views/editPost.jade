@@ -1,5 +1,5 @@
 div.editPost
-	h2 #{userName}
+	h2=userName
 	p post content
 	form(action="/editPo" method="get")
 		input(type="hidden" id="postid" name="postid" value=postID)

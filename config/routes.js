@@ -70,22 +70,68 @@ module.exports = function(app, config, passport, pg, conString) {
 	});
 
 	app.get("/showAll", function(req, res){
-		res.render("showAll", {user:req.user, postid:null});
-	})
-	app.get("/profile", function(req, res) {
-    	if(req.isAuthenticated()){
-			res.render("profile",
-				{
-					user : req.user
-				});
-   		} else {
-    	    res.redirect("/login");
-	    }
+		res.render("showAll", {user:req.user});
 	});
+	
+	app.get("/profile", function(req, res) {
+		if(req.isAuthenticated()){
+			res.render("profile", {user : req.user});
+		} 
+		else {
+			res.redirect("/login");
+		}
+	});
+	
+	app.get("/newPost", function(req,res){
+		var client = new pg.Client(conString);
+		pg.connect(conString, function(err, client, done) {
+			if(err) {
+				return console.error('could not connect to postgres', err);
+			}
+			client.query("SELECT username FROM webalu.users WHERE userid='"+req.user.id+"';", function(err, result){
+				if(err){
+					return console.error('error running query', err);
+				}
+				res.render('newPost', {user: req.user, userName: result.rows[0].username});
+			});
+		});
+	});
+	
+	app.get("/newPo", function(req, res){
+		if(req.query){
+			var client = new pg.Client(conString);
+			pg.connect(conString, function(err, client, done) {
+				if(err) {
+					return console.error('could not connect to postgres', err);
+				}
+
+				client.query("SELECT MAX (postid) FROM webalu.posts", function(err, result){
+					if(err) {
+						return console.error('error running query', err);
+					}
+					var postid = result.rows[0].max+1;
+					var now = new Date();
+					var date = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+					var hour = now.getHours();
+					if(hour < 10) hour = '0'+hour;
+					var min = now.getMinutes();
+					if(min < 10) min = '0'+min;
+					var sec = now.getSeconds();
+					if(sec < 10) sec = '0'+sec;
+					var time = hour +':'+min+':'+sec;
+					client.query("INSERT INTO webalu.posts VALUES('"+postid+"','"+req.user.id+"','"+req.query.content+"','"+date+"','"+time+"');", function(err, result){
+						if(err) {
+							return console.error('error running query', err);
+						}
+						res.redirect('/');
+					});
+				});
+			});
+
+		}
+	})
 
 	app.get("/editPost", function(req, res){
-		//console.log(req.user);
-		//console.log(req.query);
 		var client = new pg.Client(conString);
 		pg.connect(conString, function(err, client, done) {
 			if(err) {

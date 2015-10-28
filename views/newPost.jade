@@ -1,0 +1,6 @@
+div.editPost
+	h2 #{userName}
+	p post content
+	form(action="/newPo" method="get")
+		textarea(id="content" name="content" cols="30" rows="10" wrap="virtual")
+		input(type="submit" value="submit")
