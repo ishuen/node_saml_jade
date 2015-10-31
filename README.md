@@ -2,41 +2,43 @@ Hw4
 ===
 This is a warm-up for the final project. Aiming to facilitating the interactions among the alumni of a university and also the interactions between the alumni and the university, we are about to make a social network site. The task is to design and implement a web-based relational database that will become a key component of the planned Web application.
 
-The database used here is PostgreSQL server. And the web is built by node.js with jade as view engine. Both of these two servers are running on the local host.
+The database used here is **PostgreSQL**. It is a SQL-based database, which means that the database structure is relational and the query is almost the same as mySQL, which we are familiar with. And the web is built by node.js with jade as view engine. Since SAML2.0 authentication is not supported by node.js as default, we use the library **passport-saml**. Also, database client is not supported. So we use the library **node-postgres**. Both of database and web servers are running on the local host.
 
 Relational Database Design
 --------------------------
 
-* the table named users stores the user data
+* The table named users stores the user data. There are 2 fields on the table.
 
-primary key: userID
+	primary key: userID
 
-|         |         |
-|---------|---------|
+|1        |2        |
+|:-------:|:-------:|
 | user ID |user name|
 
-* the table named posts stores all the posts on the site
 
-the column userID here represent for the user publish the post
+* The table named posts stores all the posts on the site. There are 5 fields on the table.
 
-primary key: postID
+	the column userID here represent for the user publish the post
 
-foreign key: userID(references the table called users)
+	primary key: postID
 
-|         |         |              |           |           |
-|---------|---------|--------------|-----------|-----------|
+	foreign key: userID(references the table called users)
+
+|   1    |    2   |     3     |     4    |   5      |
+|:------:|:------:|:--------:|:---------:|:---------:|
 | post ID | user ID | post content | post date | post time |
 
-* the table named comments stores all the comments on the site
 
-the column userID here represent for the user write the comment
+* The table named comments stores all the comments on the site. There are 6 columns in the table.
 
-primary key: commentID
+	the column userID here represent for the user write the comment
 
-foreign key: poatID(references the table called posts), userID(references the table called users)
+	primary key: commentID
 
-|         |         |            |                 |              |              |
-|---------|---------|------------|-----------------|--------------|--------------|
+	foreign key: poatID(references the table called posts), userID(references the table called users)
+
+|  1    |    2   |    3  |    4   |   5   |   6    |
+|:-----:|:------:|:-----:|:------:|:-----:|:------:|
 | post ID | user ID | comment ID | comment content | comment date | comment time |
 
 Usage
