@@ -2,7 +2,7 @@
 	div.showAll
 		if posts !== null
 			dl
-				- for(var i = 0; i< posts.length; i++)
+				- for(var i = posts.length-1;  i >= 0; i--)
 					div.block
 						dt issuer
 						dd= posts[i].username	
